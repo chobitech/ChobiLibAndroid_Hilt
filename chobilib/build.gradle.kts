@@ -4,6 +4,8 @@ plugins {
     id("com.google.devtools.ksp")
     id("com.google.dagger.hilt.android")
     alias(libs.plugins.kotlin.compose)
+    id("maven-publish")
+    id("org.jetbrains.dokka")
 }
 
 android {
@@ -24,6 +26,39 @@ android {
 
     buildFeatures {
         compose = true
+    }
+
+    publishing {
+        singleVariant("release") {
+            withSourcesJar()
+            withJavadocJar()
+        }
+    }
+}
+
+publishing {
+    publications {
+        register<MavenPublication>("release") {
+
+            groupId = "com.github.chobitech"
+            artifactId = "chobilib"
+            version = "0.2.0"
+
+            afterEvaluate {
+                from(components["release"])
+            }
+        }
+    }
+
+    repositories {
+        maven {
+            name = "ChobiLibAndroid_Hilt"
+            url = uri("https://maven.pkg.github.com/chobitech/ChobiLibAndroid_Hilt") // リポジトリURL
+            credentials {
+                username = System.getenv("GITHUB_ACTOR")
+                password = System.getenv("GITHUB_TOKEN")
+            }
+        }
     }
 }
 
