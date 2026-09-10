@@ -1,4 +1,5 @@
 [versions]
+adsMobileSdk = "1.4.0"
 agp = "9.4.0"
 coreKtx = "1.19.0"
 hiltAndroid = "2.60.1"
@@ -10,15 +11,18 @@ espressoCore = "3.7.0"
 lifecycleRuntimeKtx = "2.11.0"
 activityCompose = "1.13.0"
 kotlin = "2.4.10"
-composeBom = "2026.09.00"
+#composeBom = "2026.09.00"
+composeBom = "2026.05.01"
 lifecycleViewmodelCompose = "2.11.0"
 material = "1.14.0"
 material3 = "1.4.0"
 appcompat = "1.8.0"
 ui = "1.12.1"
 foundation = "1.12.1"
+activityKtx = "1.13.0"
 
 [libraries]
+ads-mobile-sdk = { module = "com.google.android.libraries.ads.mobile.sdk:ads-mobile-sdk", version.ref = "adsMobileSdk" }
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 androidx-foundation = { module = "androidx.compose.foundation:foundation", version.ref = "foundation" }
 hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "hiltAndroid" }
@@ -43,6 +47,7 @@ material = { module = "com.google.android.material:material", version.ref = "mat
 androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
 androidx-ui = { module = "androidx.compose.ui:ui", version.ref = "ui" }
 androidx-material3 = { module = "androidx.compose.material3:material3", version.ref = "material3" }
+androidx-activity-ktx = { module = "androidx.activity:activity-ktx", version.ref = "activityKtx" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

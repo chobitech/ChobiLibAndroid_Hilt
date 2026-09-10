@@ -1,7 +1,6 @@
 package com.chobitech.lib.android.composable
 
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.key
 import androidx.compose.runtime.remember
 import com.chobitech.lib.android.FireSwitch

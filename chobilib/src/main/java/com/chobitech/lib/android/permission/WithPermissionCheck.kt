@@ -1,15 +1,10 @@
 package com.chobitech.lib.android.permission
 
 import android.content.Context
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberUpdatedState
 import com.chobitech.lib.android.FireSwitch
-import com.chobitech.lib.android.composable.WithActivityResult
 import com.chobitech.lib.android.composable.rememberFireSwitchForPermissionCheck
-import com.chobitech.lib.android.findActivity
 
 
 @Composable

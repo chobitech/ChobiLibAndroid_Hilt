@@ -14,6 +14,12 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.unit.Dp
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.stateIn
 
 
 @Composable
@@ -96,3 +102,20 @@ fun Context.isPermissionsOk(permissions: Array<String>): Map<String, Boolean> =
 
 val Activity.isAvailable: Boolean
     get() = !isFinishing && !isDestroyed
+
+
+fun <T> Flow<T>.toStateFlow(
+    scope: CoroutineScope,
+    initVal: T,
+    stopTimeoutMs: Long = 5000
+): StateFlow<T> = this.stateIn(
+    scope = scope,
+    started = SharingStarted.WhileSubscribed(stopTimeoutMs),
+    initialValue = initVal
+)
+
+fun <T> ViewModel.createStateFlow(flow: Flow<T>, initVal: T, stopTimeoutMs: Long = 5000) = flow.toStateFlow(
+    scope = this.viewModelScope,
+    initVal = initVal,
+    stopTimeoutMs = stopTimeoutMs
+)
