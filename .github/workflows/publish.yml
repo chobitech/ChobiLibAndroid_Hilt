@@ -2,8 +2,10 @@ name: Publish to GitHub Packages
 
 on:
   push:
-    tags:
-      - 'v*' # v1.0.0などのタグがプッシュされたときに実行
+    branches:
+      - main
+#    tags:
+#      - 'v*' # v1.0.0などのタグがプッシュされたときに実行
 
 jobs:
   publish:
