@@ -2,10 +2,10 @@ name: Publish to GitHub Packages
 
 on:
   push:
-    branches:
-      - main
-#    tags:
-#      - 'v*'
+#    branches:
+#      - main
+    tags:
+      - '*'
 
 jobs:
   publish:
