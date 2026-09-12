@@ -36,13 +36,15 @@ android {
     }
 }
 
+
+version = "0.2.3"
+
 publishing {
     publications {
         register<MavenPublication>("release") {
 
             groupId = "com.github.chobitech"
             artifactId = "chobilib"
-            version = "0.2.3"
 
             afterEvaluate {
                 from(components["release"])

@@ -3,10 +3,9 @@ check_version() {
   local package_name="$2"
 
   local version
-  version=$(./gradlew -q ":${module_name}:properties"
-   #|
-#    grep '^version:' |
-#    sed 's/version: //')
+  version=$(./gradlew -q ":${module_name}:properties" |
+    grep '^version:' |
+    sed 's/version: //')
 
   echo "$module_name version: $version"
 
