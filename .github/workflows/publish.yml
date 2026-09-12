@@ -28,6 +28,9 @@ jobs:
           source .github/scripts/check-version.sh
           check_version "chobilib" "com.chobitech.lib.android"
           check_version "admob" "com.chobitech.lib.android.admob"
+        env:
+          GITHUB_ACTOR: ${{ github.actor }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       
 
       - name: Publish
@@ -41,7 +44,7 @@ jobs:
           fi
           
           if [ "${{ steps.check_versions.outputs.admob_publish }}" = "true" ]: then
-            ./gradlew :chobilib:publish
+            ./gradlew :admob:publish
           else
             echo "admob: SKIPPED"
           fi
