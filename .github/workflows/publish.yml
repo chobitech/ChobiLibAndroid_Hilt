@@ -26,8 +26,8 @@ jobs:
         id: check_versions
         run: |
           source .github/scripts/check-version.sh
-          check_version "chobilib" "com.chobitech.lib.android"
-          check_version "admob" "com.chobitech.lib.android.admob"
+          check_version "chobilib" "com.github.chobitech.chobilib"
+          check_version "admob" "com.github.chobitech.admob"
         env:
           GITHUB_ACTOR: ${{ github.actor }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
