@@ -11,4 +11,6 @@
 
     <string name="save">保存</string>
 
+    <string name="msg_press_back_to_exit">バックキー再度押下でアプリ終了</string>
+
 </resources>
