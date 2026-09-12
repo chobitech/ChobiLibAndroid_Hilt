@@ -15,9 +15,9 @@ import com.chobitech.lib.android.R
 @SuppressLint("LocalContextGetResourceValueCall")
 @Composable
 fun WithExitByBackKey(
-    enableBackKeyGetter: () -> Boolean,
     exitTimeoutMs: Long = 2000,
     toastMessage: String? = null,
+    disableBackKeyGetter: (() -> Boolean)? = null,
     onKeyPressedWhenBackKeyDisabled: (() -> Unit)? = null,
     content: @Composable () -> Unit
 ) {
@@ -30,9 +30,9 @@ fun WithExitByBackKey(
     }
 
     BackHandler {
-        when (!enableBackKeyGetter()) {
+        when (disableBackKeyGetter?.invoke()) {
             true -> onKeyPressedWhenBackKeyDisabled?.invoke()
-            false -> {
+            else -> {
                 val curMs = System.currentTimeMillis()
                 val elapsedMs = curMs - lastBackKeyPressedTimeMs
 
