@@ -2,27 +2,50 @@ name: Publish to GitHub Packages
 
 on:
   push:
-#    branches:
-#      - main
     tags:
       - '*'
 
 jobs:
   publish:
     runs-on: ubuntu-latest
+
     permissions:
       contents: read
       packages: write
+
     steps:
       - uses: actions/checkout@v4
+
       - name: Set up JDK 21
         uses: actions/setup-java@v4
         with:
           java-version: '21'
           distribution: 'temurin'
 
+      - name: Check module version
+        id: check_versions
+        run: |
+          source .github/scripts/check-version.sh
+          check_version "chobilib" "com.chobitech.lib.android"
+          check_version "admob" "com.chobitech.lib.android.admob"
+      
+
       - name: Publish
-        run: ./gradlew publish
+
+        #run: ./gradlew publish
+        run: |
+          if [ "${{ steps.check_versions.outputs.chobilib_publish }}" = "true" ]: then
+            ./gradlew :chobilib:publish
+          else
+            echo "chobilib: SKIPPED"
+          fi
+          
+          if [ "${{ steps.check_versions.outputs.admob_publish }}" = "true" ]: then
+            ./gradlew :chobilib:publish
+          else
+            echo "admob: SKIPPED"
+          fi
+
         env:
           GITHUB_ACTOR: ${{ github.actor }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
