@@ -37,13 +37,13 @@ jobs:
 
         #run: ./gradlew publish
         run: |
-          if [ "${{ steps.check_versions.outputs.chobilib_publish }}" = "true" ]: then
+          if [ "${{ steps.check_versions.outputs.chobilib_publish }}" = "true" ]; then
             ./gradlew :chobilib:publish
           else
             echo "chobilib: SKIPPED"
           fi
           
-          if [ "${{ steps.check_versions.outputs.admob_publish }}" = "true" ]: then
+          if [ "${{ steps.check_versions.outputs.admob_publish }}" = "true" ]; then
             ./gradlew :admob:publish
           else
             echo "admob: SKIPPED"
