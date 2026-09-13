@@ -8,8 +8,8 @@ import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import androidx.navigation.navDeepLink
 
-fun NavGraphBuilder.navContentPage(
-    navContentPage: NavContentPage
+fun <T : NavContentPage> NavGraphBuilder.navContentPage(
+    navContentPage: T
 ) {
     val argsList = arrayListOf<NamedNavArgument>().also { aList ->
         navContentPage.argsList?.forEach { t ->
