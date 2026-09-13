@@ -11,7 +11,7 @@ open class NavContentPage(
     val route: String,
     @StringRes val labelRes: Int? = null,
     val icon: ImageVector? = null,
-    val argsList: List<ContentPageArgs<*>>? = null,
+    val argsList: List<NavContentPageArgs<*>>? = null,
     val uriScheme: String = DEFAULT_URI_SCHEME,
     val content: @Composable (args: Bundle?) -> Unit
 ) {
