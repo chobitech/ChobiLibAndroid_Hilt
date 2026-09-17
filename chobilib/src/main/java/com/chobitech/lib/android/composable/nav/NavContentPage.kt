@@ -6,6 +6,8 @@ import androidx.annotation.StringRes
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
+import kotlin.text.append
+import kotlin.toString
 
 open class NavContentPage(
     val route: String,
@@ -29,6 +31,25 @@ open class NavContentPage(
 
     open val deepLinkUri: String by lazy {
         "$uriScheme://$routeWithArgs"
+    }
+
+    fun getRouteUri(argsMap: Map<String, Any?>, withScheme: Boolean = false): String {
+        val uriSb = StringBuilder()
+
+        if (withScheme) {
+            uriSb.append(uriScheme).append("://")
+        }
+
+        uriSb.append(route)
+
+        if (argsMap.isNotEmpty()) {
+            uriSb.append("?")
+                .append(
+                    argsMap.map { "${it.key}=${it.value}" }.joinToString("&")
+                )
+        }
+
+        return uriSb.toString()
     }
 
     fun getLabelString(context: Context) = labelRes?.let { context.getString(it) }
