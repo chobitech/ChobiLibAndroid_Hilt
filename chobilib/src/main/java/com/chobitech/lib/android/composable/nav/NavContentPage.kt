@@ -20,10 +20,15 @@ open class NavContentPage(
         const val DEFAULT_URI_SCHEME = "myNcp"
     }
 
+
+    val argsString: String? by lazy {
+        argsList?.map { it.name }?.joinToString("&", transform = { "$it={$it}" })
+    }
+
+    val routeWithArgs by lazy { route + argsString?.let { "?$it" } }
+
     open val deepLinkUri: String by lazy {
-        "$uriScheme://$route" + argsList?.let { list ->
-            "?" + list.map { it.name }.joinToString("&", transform = { "$it={$it}" })
-        }
+        "$uriScheme://$routeWithArgs"
     }
 
     fun getLabelString(context: Context) = labelRes?.let { context.getString(it) }
