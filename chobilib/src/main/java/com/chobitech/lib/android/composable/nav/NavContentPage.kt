@@ -25,7 +25,7 @@ open class NavContentPage(
         argsList?.map { it.name }?.joinToString("&", transform = { "$it={$it}" })
     }
 
-    val routeWithArgs by lazy { route + argsString?.let { "?$it" } }
+    val routeWithArgs by lazy { argsString?.let { "$route?$it" } ?: route }
 
     open val deepLinkUri: String by lazy {
         "$uriScheme://$routeWithArgs"

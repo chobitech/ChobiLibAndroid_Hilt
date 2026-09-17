@@ -23,7 +23,7 @@ fun <T : NavContentPage> NavGraphBuilder.navContentPage(
     }
 
     composable(
-        route = navContentPage.route,
+        route = navContentPage.routeWithArgs,
         arguments = argsList,
         deepLinks = listOf(
             navDeepLink { uriPattern = navContentPage.deepLinkUri }
