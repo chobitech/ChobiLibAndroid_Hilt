@@ -26,7 +26,7 @@ fun <T : NavContentPage> NavGraphBuilder.navContentPage(
         route = navContentPage.route,
         arguments = argsList,
         deepLinks = listOf(
-            navDeepLink { uriPattern = navContentPage.uri }
+            navDeepLink { uriPattern = navContentPage.deepLinkUri }
         )
     ) { backStackEntry ->
         navContentPage.content(backStackEntry.arguments)

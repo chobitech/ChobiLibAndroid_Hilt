@@ -20,7 +20,7 @@ open class NavContentPage(
         const val DEFAULT_URI_SCHEME = "myNcp"
     }
 
-    open val uri: String by lazy {
+    open val deepLinkUri: String by lazy {
         "$uriScheme://$route" + argsList?.let { list ->
             "?" + list.map { it.name }.joinToString("&", transform = { "$it={$it}" })
         }
