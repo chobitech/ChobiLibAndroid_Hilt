@@ -29,7 +29,7 @@ fun <T : NavContentPage> NavGraphBuilder.navContentPage(
             navDeepLink { uriPattern = navContentPage.deepLinkUri }
         )
     ) { backStackEntry ->
-        navContentPage.content(backStackEntry.arguments)
+        navContentPage.Content(backStackEntry.arguments)
     }
 }
 
