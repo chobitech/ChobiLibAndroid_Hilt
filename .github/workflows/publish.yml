@@ -28,6 +28,7 @@ jobs:
           source .github/scripts/check-version.sh
           check_version "chobilib" "com.github.chobitech.chobilib"
           check_version "admob" "com.github.chobitech.admob"
+          check_version "room" "com.github.chobitech.room"
         env:
           GITHUB_ACTOR: ${{ github.actor }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -37,17 +38,28 @@ jobs:
 
         #run: ./gradlew publish
         run: |
-          if [ "${{ steps.check_versions.outputs.chobilib_publish }}" = "true" ]; then
-            ./gradlew :chobilib:publish
-          else
-            echo "chobilib: SKIPPED"
-          fi
-          
-          if [ "${{ steps.check_versions.outputs.admob_publish }}" = "true" ]; then
-            ./gradlew :admob:publish
-          else
-            echo "admob: SKIPPED"
-          fi
+          source .github/scripts/exec-publish.sh
+          exec_publish "chobilib" "${{ steps.check_versions.outputs.chobilib_publish }}"
+          exec_publish "admob" "${{ steps.check_versions.outputs.admob_publish }}"
+          exec_publish "room" "${{ steps.check_versions.outputs.room_publish }}"
+
+#          if [ "${{ steps.check_versions.outputs.chobilib_publish }}" = "true" ]; then
+#            ./gradlew :chobilib:publish
+#          else
+#            echo "chobilib: SKIPPED"
+#          fi
+#
+#          if [ "${{ steps.check_versions.outputs.admob_publish }}" = "true" ]; then
+#            ./gradlew :admob:publish
+#          else
+#            echo "admob: SKIPPED"
+#          fi
+#
+#          if [ "${{ steps.check_versions.outputs.room_publish }}" = "true" ]; then
+#            ./gradlew :room:publish
+#          else
+#            echo "room: SKIPPED"
+#          fi
 
         env:
           GITHUB_ACTOR: ${{ github.actor }}

@@ -26,3 +26,4 @@ rootProject.name = "ChobiLibAndroid_Hilt"
 include(":app")
 include(":chobilib")
 include(":admob")
+include(":room")

@@ -138,3 +138,10 @@ fun <S, T> ViewModel.createMappedStateFlow(
     mapper: (T) -> S,
     stopTimeoutMs: Long = 5000
 ) = flow.toMappedStateFlow(this.viewModelScope, initVal, mapper, stopTimeoutMs)
+
+
+val UByte.hex: String
+    get() = this.toString(16).padStart(2, '0')
+
+val Byte.hex: String
+    get() = this.toUByte().hex

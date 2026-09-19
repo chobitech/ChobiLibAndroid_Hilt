@@ -4,12 +4,15 @@ plugins {
     id("com.google.devtools.ksp")
     id("com.google.dagger.hilt.android")
     alias(libs.plugins.kotlin.compose)
+
     id("maven-publish")
     id("org.jetbrains.dokka")
+
+    //id("androidx.room") version "2.8.5"
 }
 
 android {
-    namespace = "com.chobitech.lib.android"
+    namespace = "com.chobitech.lib.android.room"
     compileSdk {
         version = release(37)
     }
@@ -19,6 +22,7 @@ android {
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_21
         targetCompatibility = JavaVersion.VERSION_21
@@ -34,17 +38,17 @@ android {
             withJavadocJar()
         }
     }
+
 }
 
-
-version = "0.3.1"
+version = "0.1.0"
 
 publishing {
     publications {
         register<MavenPublication>("release") {
 
             groupId = "com.github.chobitech"
-            artifactId = "chobilib"
+            artifactId = "room"
 
             afterEvaluate {
                 from(components["release"])
@@ -65,6 +69,7 @@ publishing {
 }
 
 dependencies {
+    implementation(project(":chobilib"))
     implementation(libs.androidx.appcompat)
     implementation(libs.androidx.core.ktx)
     implementation(libs.material)
@@ -72,16 +77,18 @@ dependencies {
     androidTestImplementation(libs.androidx.espresso.core)
     androidTestImplementation(libs.androidx.junit)
 
-    implementation(libs.androidx.material3)
-    implementation(libs.androidx.ui)
-    implementation(libs.androidx.foundation)
 
-    implementation(libs.androidx.lifecycle.viewmodel.compose)
-    implementation(libs.androidx.activity.ktx)
 
     implementation(libs.androidx.activity.compose)
-
     implementation(libs.hilt.android)
     ksp(libs.hilt.android.compiler)
-    implementation(libs.androidx.hilt.navigation.compose)
+
+
+    implementation(libs.androidx.room.common)
+    implementation(libs.androidx.room.runtime)
+    implementation(libs.androidx.room.ktx)
+
+    implementation(libs.sqlcipher.android)
+    implementation(libs.androidx.sqlite.bundled)
+    implementation(libs.androidx.room.sqlite.wrapper)
 }
