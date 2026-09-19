@@ -40,8 +40,8 @@ jobs:
         run: |
           source .github/scripts/exec-publish.sh
           exec_publish "chobilib" "${{ steps.check_versions.outputs.chobilib_publish }}"
-          exec_publish "admob" "${{ steps.check_versions.outputs.chobilib-admob_publish }}"
-          exec_publish "room" "${{ steps.check_versions.outputs.chobilib-room_publish }}"
+          exec_publish "admob" "${{ steps.check_versions.outputs.admob_publish }}"
+          exec_publish "room" "${{ steps.check_versions.outputs.room_publish }}"
 
 #          if [ "${{ steps.check_versions.outputs.chobilib_publish }}" = "true" ]; then
 #            ./gradlew :chobilib:publish
