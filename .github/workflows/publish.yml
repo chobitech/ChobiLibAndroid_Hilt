@@ -27,8 +27,8 @@ jobs:
         run: |
           source .github/scripts/check-version.sh
           check_version "chobilib" "com.github.chobitech.chobilib"
-          check_version "admob" "com.github.chobitech.admob"
-          check_version "room" "com.github.chobitech.room"
+          check_version "chobilib-admob" "com.github.chobitech.chobilib-admob"
+          check_version "chobilib-room" "com.github.chobitech.chobilib-room"
         env:
           GITHUB_ACTOR: ${{ github.actor }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -40,8 +40,8 @@ jobs:
         run: |
           source .github/scripts/exec-publish.sh
           exec_publish "chobilib" "${{ steps.check_versions.outputs.chobilib_publish }}"
-          exec_publish "admob" "${{ steps.check_versions.outputs.admob_publish }}"
-          exec_publish "room" "${{ steps.check_versions.outputs.room_publish }}"
+          exec_publish "chobilib-admob" "${{ steps.check_versions.outputs.chobilib-admob_publish }}"
+          exec_publish "chobilib-room" "${{ steps.check_versions.outputs.chobilib-room_publish }}"
 
 #          if [ "${{ steps.check_versions.outputs.chobilib_publish }}" = "true" ]; then
 #            ./gradlew :chobilib:publish

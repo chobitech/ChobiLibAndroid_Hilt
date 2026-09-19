@@ -48,7 +48,7 @@ publishing {
         register<MavenPublication>("release") {
 
             groupId = "com.github.chobitech"
-            artifactId = "room"
+            artifactId = "chobilib-room"
 
             afterEvaluate {
                 from(components["release"])
