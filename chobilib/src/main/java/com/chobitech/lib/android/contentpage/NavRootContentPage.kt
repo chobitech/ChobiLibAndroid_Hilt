@@ -14,4 +14,9 @@ abstract class NavRootContentPage : NavContentPage() {
         }
     }
 
+    override fun isMatchRoute(route: String): Boolean {
+        return super.isMatchRoute(route)
+                || (route == this.navigationRouteName)
+    }
+
 }
