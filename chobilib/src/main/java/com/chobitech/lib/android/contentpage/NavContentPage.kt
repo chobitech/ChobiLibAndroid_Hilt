@@ -45,28 +45,19 @@ abstract class NavContentPage(
     open fun Content(
         args: Bundle?,
         topPadding: Dp? = null,
-        contentScrollState: ScrollState? = null
+        contentScrollState: ScrollState = rememberScrollState()
     ) {
-        val appContentPaddingViewModel: AppContentPaddingViewModel = hiltViewModel()
-        val topPaddingByFlow by appContentPaddingViewModel.topPaddingFlow.collectAsStateWithLifecycle()
-
-        val scrollState = contentScrollState ?: rememberScrollState()
+        val topPaddingViewModel: NavContentTopPaddingViewModel = hiltViewModel()
+        val topPaddingByFlow by topPaddingViewModel.topPaddingFlow.collectAsStateWithLifecycle()
 
         val topP = topPadding ?: topPaddingByFlow
 
-        val modif = remember(scrollState) {
-            val m = Modifier
+        val modif = Modifier
 
-            if (enableContentScroll) {
-                m.fillMaxSize()
-                    .verticalScroll(scrollState)
-            } else {
-                m.fillMaxWidth()
-            }
-
-            m
+        if (enableContentScroll) {
+            modif.fillMaxSize()
+                .verticalScroll(contentScrollState)
         }
-
 
         Column(
             modifier = modif
@@ -80,7 +71,7 @@ abstract class NavContentPage(
             InnerContent(
                 args,
                 topP,
-                scrollState
+                contentScrollState
             )
         }
 
