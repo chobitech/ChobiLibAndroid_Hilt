@@ -14,6 +14,7 @@ import androidx.navigation.compose.NavHost
 
 @Composable
 fun NavContentPageHost(
+    startDestination: String,
     navContentPageViewModel: NavContentPageViewModel,
     modifier: Modifier = Modifier,
     navController: NavHostController = rememberNavController(),
@@ -67,7 +68,7 @@ fun NavContentPageHost(
     NavHost(
         modifier = modifier,
         navController = navController,
-        startDestination = ""
+        startDestination = startDestination
     ) {
         navContentPageViewModel.rootContents.forEach { rPage ->
             navRootContentPage(rPage)
