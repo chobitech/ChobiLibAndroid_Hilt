@@ -6,6 +6,7 @@ import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.scan
 
 open class NavContentPageStateManager {
 
@@ -19,7 +20,7 @@ open class NavContentPageStateManager {
 
 
     private val _currentRoute = MutableStateFlow<String?>(null)
-
+    val currentRouteFlow = _currentRoute.asStateFlow()
 
     fun changeRoute(route: String?) {
         _currentRoute.value = route
@@ -31,32 +32,25 @@ open class NavContentPageStateManager {
         }
         .distinctUntilChanged()
 
-
-    val currentRouteFlow = _currentRoute.asStateFlow()
-
-    val currentRootContentFlow = _currentRoute
-        .map { route ->
-            route?.let { rt ->
-                rootContents.firstOrNull {
-                    it.isMatchRoute(rt)
-                }
+    val currentRootContentFlow = currentContentPageFlow
+        .scan<NavContentPage?, NavRootContentPage?>(null) { curPage, newPage ->
+            when (val root = newPage as? NavRootContentPage) {
+                null -> curPage
+                else -> root
             }
         }
         .distinctUntilChanged()
 
-    val currentChildContentFlow = _currentRoute
-        .map { route ->
-            if (route != null) {
-                for (rt in rootContents) {
-                    val child = rt.getChildContentOrNull(route)
-                    if (child != null) {
-                        return@map child
-                    }
-                }
+
+    val currentChildContentFlow = currentContentPageFlow
+        .scan<NavContentPage?, NavChildContentPage?>(null) { curPage, newPage ->
+            when (val child = newPage as? NavChildContentPage) {
+                null -> curPage
+                else -> child
             }
-            null
         }
         .distinctUntilChanged()
+
 
 
     fun getContentPage(route: String): NavContentPage? {
