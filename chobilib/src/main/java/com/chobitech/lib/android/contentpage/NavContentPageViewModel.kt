@@ -1,7 +1,9 @@
 package com.chobitech.lib.android.contentpage
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.chobitech.lib.android.createStateFlow
+import kotlinx.coroutines.launch
 
 open class NavContentPageViewModel(
     val navContentPageStateManager: NavContentPageStateManager
@@ -10,6 +12,12 @@ open class NavContentPageViewModel(
     val rootContents: List<NavRootContentPage> = navContentPageStateManager.rootContents
 
     val popBackSwitchFlow = navContentPageStateManager.popBackSwitchFlow
+
+    fun execPopBack() {
+        viewModelScope.launch {
+            navContentPageStateManager.execPopBack()
+        }
+    }
 
     fun changeRoute(route: String?) = navContentPageStateManager.changeRoute(route)
 
