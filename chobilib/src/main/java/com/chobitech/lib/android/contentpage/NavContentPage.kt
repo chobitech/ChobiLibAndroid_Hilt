@@ -134,7 +134,7 @@ abstract class NavContentPage(
     val labelString @Composable get() = labelRes?.let { stringResource(it) }
 
 
-    fun isMatchRoute(route: String): Boolean {
+    open fun isMatchRoute(route: String): Boolean {
         //return (route == this.route) || routePrefixRegex.containsMatchIn(route)
         return (route == this.route)
                 || route.startsWith("${this.route}?")
