@@ -48,7 +48,7 @@ abstract class NavContentPage(
         contentScrollState: ScrollState = rememberScrollState()
     ) {
         val topPaddingViewModel: NavContentTopPaddingViewModel = hiltViewModel()
-        val topPaddingByFlow by topPaddingViewModel.topPaddingFlow.collectAsStateWithLifecycle()
+        val topPaddingByFlow by topPaddingViewModel.totalTopPaddingFlow.collectAsStateWithLifecycle()
 
         val topP = topPadding ?: topPaddingByFlow
 
