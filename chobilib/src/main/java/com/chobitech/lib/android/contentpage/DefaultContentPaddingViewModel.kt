@@ -6,6 +6,6 @@ import javax.inject.Inject
 @HiltViewModel
 class DefaultContentPaddingViewModel @Inject constructor(
     private val defaultContentPaddingManager: DefaultContentPaddingManager
-) {
+) : ContentPaddingViewModel(defaultContentPaddingManager) {
 
 }
