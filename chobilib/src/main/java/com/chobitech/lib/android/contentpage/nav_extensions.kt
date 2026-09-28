@@ -2,7 +2,6 @@ package com.chobitech.lib.android.contentpage
 
 import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.ui.unit.Dp
 import androidx.navigation.NamedNavArgument
 import androidx.navigation.NavController
 import androidx.navigation.NavGraph.Companion.findStartDestination
@@ -14,7 +13,6 @@ import androidx.navigation.navigation
 
 fun <T : NavContentPage> NavGraphBuilder.navContentPage(
     navContentPage: T,
-    topPadding: Dp? = null,
     contentScrollState: ScrollState? = null
 ) {
     val argsList = arrayListOf<NamedNavArgument>().also { aList ->
@@ -40,7 +38,6 @@ fun <T : NavContentPage> NavGraphBuilder.navContentPage(
 
         navContentPage.Content(
             args = backStackEntry.arguments,
-            topPadding = topPadding,
             contentScrollState = contentScrollState ?: localScrollState
         )
     }
