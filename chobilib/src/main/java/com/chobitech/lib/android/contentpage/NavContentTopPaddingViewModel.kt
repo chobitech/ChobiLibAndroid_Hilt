@@ -1,7 +1,9 @@
 package com.chobitech.lib.android.contentpage
 
 import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.dp
 import androidx.lifecycle.ViewModel
+import com.chobitech.lib.android.createStateFlow
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.asStateFlow
 import javax.inject.Inject
@@ -18,5 +20,8 @@ class NavContentTopPaddingViewModel @Inject constructor(
     fun setScaffoldTopPadding(topPadding: Dp) = navContentTopPaddingManager.setScaffoldTopPadding(topPadding)
 
 
-    val totalTopPaddingFlow = navContentTopPaddingManager.totalTopPaddingFlow
+    val totalTopPaddingFlow = createStateFlow(
+        navContentTopPaddingManager.totalTopPaddingFlow,
+        initVal = 0.dp
+    )
 }
