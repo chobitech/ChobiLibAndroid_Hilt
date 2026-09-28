@@ -135,7 +135,10 @@ abstract class NavContentPage(
 
 
     fun isMatchRoute(route: String): Boolean {
-        return (route == this.route) || routePrefixRegex.containsMatchIn(route)
+        //return (route == this.route) || routePrefixRegex.containsMatchIn(route)
+        return (route == this.route)
+                || route.startsWith("${this.route}?")
+                || route.startsWith("${uriScheme}://${this.route}")
     }
 
 }
