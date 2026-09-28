@@ -61,7 +61,9 @@ fun NavContentPageHost(
 
     LaunchedEffect(Unit) {
         navContentPageViewModel.popBackSwitchFlow.collect {
-            navController.popBackStack()
+            if((currentContentPage as? NavChildContentPage)?.onBeforeBackToPreviousPage() != false) {
+                navController.popBackStack()
+            }
         }
     }
 

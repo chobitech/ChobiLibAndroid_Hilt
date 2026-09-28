@@ -1,5 +1,8 @@
 package com.chobitech.lib.android.contentpage
 
+import androidx.compose.foundation.ScrollState
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.ui.unit.Dp
 import androidx.navigation.NamedNavArgument
 import androidx.navigation.NavController
 import androidx.navigation.NavGraph.Companion.findStartDestination
@@ -10,7 +13,9 @@ import androidx.navigation.navDeepLink
 import androidx.navigation.navigation
 
 fun <T : NavContentPage> NavGraphBuilder.navContentPage(
-    navContentPage: T
+    navContentPage: T,
+    topPadding: Dp? = null,
+    contentScrollState: ScrollState? = null
 ) {
     val argsList = arrayListOf<NamedNavArgument>().also { aList ->
         navContentPage.argsList?.forEach { t ->
@@ -30,7 +35,14 @@ fun <T : NavContentPage> NavGraphBuilder.navContentPage(
             navDeepLink { uriPattern = navContentPage.deepLinkUri }
         )
     ) { backStackEntry ->
-        navContentPage.Content(backStackEntry.arguments)
+
+        val localScrollState = rememberScrollState()
+
+        navContentPage.Content(
+            args = backStackEntry.arguments,
+            topPadding = topPadding,
+            contentScrollState = contentScrollState ?: localScrollState
+        )
     }
 }
 

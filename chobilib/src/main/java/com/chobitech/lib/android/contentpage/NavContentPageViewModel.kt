@@ -11,8 +11,6 @@ open class NavContentPageViewModel(
 
     val popBackSwitchFlow = navContentPageStateManager.popBackSwitchFlow
 
-    val startupPageRoute: String = navContentPageStateManager.startupPageRoute
-
     fun changeRoute(route: String?) = navContentPageStateManager.changeRoute(route)
 
 

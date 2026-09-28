@@ -18,8 +18,6 @@ open class NavContentPageStateManager {
     open val rootContents: List<NavRootContentPage> = listOf()
 
 
-    open val startupPageRoute: String = ""
-
     private val _currentRoute = MutableStateFlow<String?>(null)
 
 
