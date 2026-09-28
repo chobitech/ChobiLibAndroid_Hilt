@@ -1,4 +1,4 @@
-package com.chobitech.lib.android.composable.nav
+package com.chobitech.lib.android.contentpage
 
 import androidx.navigation.NavType
 

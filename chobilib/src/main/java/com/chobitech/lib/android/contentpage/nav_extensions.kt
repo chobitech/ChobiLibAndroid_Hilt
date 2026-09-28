@@ -1,4 +1,4 @@
-package com.chobitech.lib.android.composable.nav
+package com.chobitech.lib.android.contentpage
 
 import androidx.navigation.NamedNavArgument
 import androidx.navigation.NavController
@@ -7,6 +7,7 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import androidx.navigation.navDeepLink
+import androidx.navigation.navigation
 
 fun <T : NavContentPage> NavGraphBuilder.navContentPage(
     navContentPage: T
@@ -30,6 +31,23 @@ fun <T : NavContentPage> NavGraphBuilder.navContentPage(
         )
     ) { backStackEntry ->
         navContentPage.Content(backStackEntry.arguments)
+    }
+}
+
+fun <T : NavRootContentPage> NavGraphBuilder.navRootContentPage(
+    rootContentPage: T,
+    startDestination: String? = null
+) {
+    navigation(
+        startDestination = startDestination ?: rootContentPage.route,
+        route = rootContentPage.navigationRouteName,
+    ) {
+        navContentPage(rootContentPage)
+
+        for (child in rootContentPage.childContents) {
+            navContentPage(child)
+        }
+
     }
 }
 
