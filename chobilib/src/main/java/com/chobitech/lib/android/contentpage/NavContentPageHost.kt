@@ -18,7 +18,7 @@ fun NavContentPageHost(
     navContentPageViewModel: NavContentPageViewModel,
     modifier: Modifier = Modifier,
     navController: NavHostController = rememberNavController(),
-    onRouteChanged: ((navCon: NavHostController) -> Unit)? = null
+    onRouteChanged: ((navCon: NavHostController, destPage: NavContentPage?) -> Unit)? = null
 ) {
     val currentRoute by navContentPageViewModel.currentRouteFlow.collectAsStateWithLifecycle()
 
@@ -28,8 +28,15 @@ fun NavContentPageHost(
         val listener = NavController.OnDestinationChangedListener { _, dest, _ ->
             dest.route?.also { route ->
                 val content = navContentPageViewModel.getContentPage(route)
+
+                onRouteChanged?.invoke(navController, content)
+
                 if (content != currentContentPage) {
-                    navContentPageViewModel.changeRoute(content?.route)
+                    val r = when (content) {
+                        is NavRootContentPage -> content.navigationRouteName
+                        else -> content?.route
+                    }
+                    navContentPageViewModel.changeRoute(r)
                 }
             }
         }
@@ -47,16 +54,13 @@ fun NavContentPageHost(
             return@LaunchedEffect
         }
 
-        onRouteChanged?.invoke(navController)
-            ?: run {
-                navController.navigate(route = currentRoute!!) {
-                    popUpTo(navController.graph.findStartDestination().id) {
-                        saveState = true
-                    }
-                    launchSingleTop = true
-                    restoreState = true
-                }
+        navController.navigate(route = currentRoute!!) {
+            popUpTo(navController.graph.findStartDestination().id) {
+                saveState = true
             }
+            launchSingleTop = true
+            restoreState = true
+        }
     }
 
     LaunchedEffect(Unit) {
