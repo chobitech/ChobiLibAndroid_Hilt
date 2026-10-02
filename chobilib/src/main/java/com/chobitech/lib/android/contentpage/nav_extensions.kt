@@ -65,8 +65,8 @@ fun <T : NavRootContentPage> NavGraphBuilder.navRootContentPage(
 fun <T : NavDialog> NavGraphBuilder.registerDialog(dialog: T) {
     dialog(
         route = dialog.route
-    ) {
-        dialog.DialogContent()
+    ) { backStackEntry ->
+        dialog.DialogContent(backStackEntry.arguments)
     }
 }
 
