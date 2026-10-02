@@ -69,5 +69,15 @@ open class NavContentPageStateManager {
         return null
     }
 
+
+
+
+    open val dialogs: List<NavDialog> = listOf()
+
+    fun getDialog(route: String): NavDialog? {
+        return dialogs.firstOrNull { it.route == route }
+    }
+
+
 }
 

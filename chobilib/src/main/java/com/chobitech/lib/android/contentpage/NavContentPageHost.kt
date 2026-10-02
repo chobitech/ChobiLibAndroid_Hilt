@@ -82,6 +82,10 @@ fun NavContentPageHost(
             navRootContentPage(rPage)
         }
 
+        navContentPageViewModel.dialogs.forEach { d ->
+            registerDialog(d)
+        }
+
         additionalBuild?.invoke(this)
     }
 

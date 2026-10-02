@@ -41,4 +41,10 @@ open class NavContentPageViewModel(
 
     fun getContentPage(route: String) = navContentPageStateManager.getContentPage(route)
 
+
+
+    val dialogs: List<NavDialog> = navContentPageStateManager.dialogs
+
+    fun getDialog(route: String) = navContentPageStateManager.getDialog(route)
+
 }
