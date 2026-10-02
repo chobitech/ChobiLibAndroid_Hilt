@@ -72,10 +72,10 @@ open class NavContentPageStateManager {
 
 
 
-    open val dialogs: List<NavDialog> = listOf()
+    open val rootDialogs: List<NavDialog> = listOf()
 
-    fun getDialog(route: String): NavDialog? {
-        return dialogs.firstOrNull { it.route == route }
+    fun getRootDialog(route: String): NavDialog? {
+        return rootDialogs.firstOrNull { it.route == route }
     }
 
 

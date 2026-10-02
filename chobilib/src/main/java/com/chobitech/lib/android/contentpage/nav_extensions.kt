@@ -42,6 +42,10 @@ fun <T : NavContentPage> NavGraphBuilder.navContentPage(
             contentScrollState = contentScrollState ?: localScrollState
         )
     }
+
+    navContentPage.dialogs.forEach { d ->
+        registerDialog(d)
+    }
 }
 
 fun <T : NavRootContentPage> NavGraphBuilder.navRootContentPage(

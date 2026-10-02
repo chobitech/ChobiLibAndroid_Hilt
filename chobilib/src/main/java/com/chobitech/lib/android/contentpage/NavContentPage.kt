@@ -112,4 +112,9 @@ abstract class NavContentPage(
                 || route.startsWith("${uriScheme}://${this.route}")
     }
 
+
+
+    open val dialogs: List<NavDialog> = listOf()
+
+
 }
