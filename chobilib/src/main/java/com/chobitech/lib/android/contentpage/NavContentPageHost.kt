@@ -8,6 +8,7 @@ import androidx.compose.ui.Modifier
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import androidx.navigation.NavGraph.Companion.findStartDestination
+import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.compose.NavHost
@@ -18,6 +19,7 @@ fun NavContentPageHost(
     navContentPageViewModel: NavContentPageViewModel,
     modifier: Modifier = Modifier,
     navController: NavHostController = rememberNavController(),
+    additionalBuild: (NavGraphBuilder.() -> Unit)? = null,
     onRouteChanged: ((navCon: NavHostController, destPage: NavContentPage?) -> Unit)? = null
 ) {
     val currentRoute by navContentPageViewModel.currentRouteFlow.collectAsStateWithLifecycle()
@@ -79,6 +81,8 @@ fun NavContentPageHost(
         navContentPageViewModel.rootContents.forEach { rPage ->
             navRootContentPage(rPage)
         }
+
+        additionalBuild?.invoke(this)
     }
 
 }
