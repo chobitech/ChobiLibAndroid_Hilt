@@ -15,6 +15,8 @@ open class ChobiApplication : Application() {
     private val _isInitialized = MutableStateFlow(false)
     val isInitializedFlow = _isInitialized.asStateFlow()
 
+    open val debugLogTag: String? = null
+
     protected open suspend fun innerInitApp() {
 
     }
@@ -26,6 +28,10 @@ open class ChobiApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()
+
+        debugLogTag?.also {
+            DebugLog.tag = it
+        }
 
         appScope.launch {
             initApp()
