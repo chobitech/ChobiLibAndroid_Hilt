@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Context
 import android.content.ContextWrapper
 import android.content.pm.PackageManager
+import android.content.res.Configuration
 import androidx.activity.ComponentActivity
 import androidx.activity.viewModels
 import androidx.compose.material3.Typography
@@ -145,3 +146,11 @@ val UByte.hex: String
 
 val Byte.hex: String
     get() = this.toUByte().hex
+
+
+val Context.isDeviceInDarkMode: Boolean
+    get() {
+        val uiMode = applicationContext.resources.configuration.uiMode
+        val mask = uiMode and Configuration.UI_MODE_NIGHT_MASK
+        return mask == Configuration.UI_MODE_NIGHT_YES
+    }
