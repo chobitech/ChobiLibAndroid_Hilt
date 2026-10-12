@@ -15,8 +15,8 @@ import com.chobitech.lib.android.contentpage.ContentPaddingViewModel
 
 
 @Composable
-fun <T : CtThemeData> CtTheme(
-    themeDataManager: CtThemeDataManager<T>,
+fun <T : CtThemeData, M : CtThemeDataManager<T>> CtTheme(
+    themeDataManager: M,
     contentPaddingViewModel: ContentPaddingViewModel? = null,
     typography: Typography = MaterialTheme.typography,
     content: @Composable () -> Unit,
@@ -52,13 +52,13 @@ fun <T : CtThemeData> CtTheme(
 }
 
 @Composable
-fun <T : CtThemeData> CtTheme(
-    themeViewModel: CtThemeDataViewModel<T>,
+fun <T : CtThemeData, M : CtThemeDataManager<T>, VM: CtThemeDataViewModel<T, M>> CtTheme(
+    themeViewModel: VM,
     contentPaddingViewModel: ContentPaddingViewModel? = null,
     typography: Typography = MaterialTheme.typography,
     content: @Composable () -> Unit,
-) = CtTheme<T>(
-    themeDataManager = themeViewModel.themeDataManager,
+) = CtTheme(
+    themeDataManager = themeViewModel.themeManager,
     contentPaddingViewModel = contentPaddingViewModel,
     typography = typography,
     content = content
