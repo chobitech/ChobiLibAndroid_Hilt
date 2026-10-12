@@ -23,22 +23,30 @@ abstract class CtThemeDataManager<T : CtThemeData>(
     abstract val themeDataList: List<T>
     abstract val initialThemeData: T
 
-    private val _currentThemeData = MutableStateFlow(initialThemeData)
-    val currentThemeDataFlow = _currentThemeData.asStateFlow()
+    private val _currentThemeData by lazy {
+        MutableStateFlow(initialThemeData)
+    }
+    val currentThemeDataFlow by lazy {
+        _currentThemeData.asStateFlow()
+    }
 
-    val isDarkThemeFlow = currentThemeDataFlow
-        .toMappedStateFlow(
-            scope = scope,
-            mapper = { it.isDarkTheme },
-            initVal = currentThemeDataFlow.value.isDarkTheme
-        )
+    val isDarkThemeFlow by lazy {
+        currentThemeDataFlow
+            .toMappedStateFlow(
+                scope = scope,
+                mapper = { it.isDarkTheme },
+                initVal = currentThemeDataFlow.value.isDarkTheme
+            )
+    }
 
-    val colorSchemeFlow = currentThemeDataFlow
-        .toMappedStateFlow(
-            scope = scope,
-            mapper = { it.colorScheme },
-            initVal = currentThemeDataFlow.value.colorScheme
-        )
+    val colorSchemeFlow by lazy {
+        currentThemeDataFlow
+            .toMappedStateFlow(
+                scope = scope,
+                mapper = { it.colorScheme },
+                initVal = currentThemeDataFlow.value.colorScheme
+            )
+    }
 
     private fun getSystemBarStyle(isDark: Boolean): SystemBarStyle {
         return when (isDark) {
@@ -47,12 +55,14 @@ abstract class CtThemeDataManager<T : CtThemeData>(
         }
     }
 
-    val systemBarStyleFlow = isDarkThemeFlow
-        .toMappedStateFlow(
-            scope = scope,
-            mapper = { getSystemBarStyle(it) },
-            initVal = getSystemBarStyle(isDarkThemeFlow.value)
-        )
+    val systemBarStyleFlow by lazy {
+        isDarkThemeFlow
+            .toMappedStateFlow(
+                scope = scope,
+                mapper = { getSystemBarStyle(it) },
+                initVal = getSystemBarStyle(isDarkThemeFlow.value)
+            )
+    }
 
     protected open fun onThemeDataSet(themeData: T) {}
 
