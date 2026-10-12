@@ -13,16 +13,17 @@ import androidx.core.view.WindowInsetsControllerCompat
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.chobitech.lib.android.contentpage.ContentPaddingViewModel
 
+
 @Composable
 fun <T : CtThemeData> CtTheme(
-    themeViewModel: CtThemeDataViewModel<T>,
-    contentPaddingViewModel: ContentPaddingViewModel,
+    themeDataManager: CtThemeDataManager<T>,
+    contentPaddingViewModel: ContentPaddingViewModel? = null,
     typography: Typography = MaterialTheme.typography,
     content: @Composable () -> Unit,
 ) {
     val activity = LocalActivity.current
 
-    val themeData by themeViewModel.themeDataManager.currentThemeDataFlow.collectAsStateWithLifecycle()
+    val themeData by themeDataManager.currentThemeDataFlow.collectAsStateWithLifecycle()
 
     LaunchedEffect(themeData) {
 
@@ -44,9 +45,21 @@ fun <T : CtThemeData> CtTheme(
             modifier = Modifier
                 .fillMaxSize()
         ) { padding ->
-            contentPaddingViewModel.setScaffoldPadding(padding)
+            contentPaddingViewModel?.setScaffoldPadding(padding)
             content()
         }
     }
-
 }
+
+@Composable
+fun <T : CtThemeData> CtTheme(
+    themeViewModel: CtThemeDataViewModel<T>,
+    contentPaddingViewModel: ContentPaddingViewModel? = null,
+    typography: Typography = MaterialTheme.typography,
+    content: @Composable () -> Unit,
+) = CtTheme<T>(
+    themeDataManager = themeViewModel.themeDataManager,
+    contentPaddingViewModel = contentPaddingViewModel,
+    typography = typography,
+    content = content
+)
