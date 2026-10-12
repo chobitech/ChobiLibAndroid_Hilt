@@ -15,14 +15,14 @@ import com.chobitech.lib.android.contentpage.ContentPaddingViewModel
 
 @Composable
 fun <T : CtThemeData> CtTheme(
-    themeManager: CtThemeDataManager<T>,
+    themeViewModel: CtThemeDataViewModel<T>,
     contentPaddingViewModel: ContentPaddingViewModel,
     typography: Typography = MaterialTheme.typography,
     content: @Composable () -> Unit,
 ) {
     val activity = LocalActivity.current
 
-    val themeData by themeManager.currentThemeDataFlow.collectAsStateWithLifecycle()
+    val themeData by themeViewModel.themeDataManager.currentThemeDataFlow.collectAsStateWithLifecycle()
 
     LaunchedEffect(themeData) {
 
