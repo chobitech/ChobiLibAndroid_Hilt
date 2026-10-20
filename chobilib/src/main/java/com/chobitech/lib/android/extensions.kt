@@ -9,6 +9,8 @@ import androidx.activity.ComponentActivity
 import androidx.activity.viewModels
 import androidx.compose.material3.Typography
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalWindowInfo
 import androidx.compose.ui.text.font.FontFamily
@@ -154,3 +156,6 @@ val Context.isDeviceInDarkMode: Boolean
         val mask = uiMode and Configuration.UI_MODE_NIGHT_MASK
         return mask == Configuration.UI_MODE_NIGHT_YES
     }
+
+
+
