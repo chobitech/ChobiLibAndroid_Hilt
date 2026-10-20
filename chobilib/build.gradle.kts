@@ -37,7 +37,7 @@ android {
 }
 
 
-version = "0.3.29"
+version = "0.3.30"
 
 publishing {
     publications {
