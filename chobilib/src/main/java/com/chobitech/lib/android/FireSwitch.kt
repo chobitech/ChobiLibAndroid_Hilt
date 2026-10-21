@@ -28,7 +28,7 @@ class FireSwitch {
     }
 
     @Composable
-    fun LaunchOnFired(onFired: () -> Unit) {
+    fun LaunchOnFired(onFired: suspend () -> Unit) {
         val scope = rememberCoroutineScope()
 
         val innerOnFired by rememberUpdatedState(onFired)
