@@ -9,6 +9,7 @@ import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
+import kotlinx.coroutines.flow.drop
 import kotlinx.coroutines.launch
 import java.util.UUID
 
@@ -28,31 +29,15 @@ class FireSwitch {
     }
 
     @Composable
-    fun LaunchOnFired(onFired: suspend () -> Unit) {
-        val scope = rememberCoroutineScope()
-
+    fun LaunchOnFired(
+        onFired: suspend () -> Unit
+    ) {
         val innerOnFired by rememberUpdatedState(onFired)
 
         LaunchedEffect(Unit) {
-            scope.launch {
-                fired.collect {
-                    innerOnFired()
-                }
+            fired.collect {
+                innerOnFired()
             }
         }
     }
-
-
-//    internal val uuid = UUID.randomUUID()
-//
-//    private val _fired = MutableSharedFlow<Unit>(
-//        replay = 0,
-//        extraBufferCapacity = 1,
-//        onBufferOverflow = BufferOverflow.DROP_OLDEST
-//    )
-//    val fired = _fired.asSharedFlow()
-//
-//    fun fire() {
-//        _fired.tryEmit(Unit)
-//    }
 }

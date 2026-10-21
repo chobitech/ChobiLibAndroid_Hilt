@@ -23,6 +23,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.drop
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 
@@ -127,6 +128,11 @@ fun <S, T> Flow<T>.toMappedStateFlow(
 ): StateFlow<S> {
     val flow = this.map(mapper).distinctUntilChanged()
     return flow.toStateFlow(scope, initVal, stopTimeoutMs)
+}
+
+suspend fun <T> Flow<T>.collectDroppingFirstValue(collector: suspend (T) -> Unit) {
+    drop(1)
+        .collect { collector(it) }
 }
 
 fun <T> ViewModel.createStateFlow(flow: Flow<T>, initVal: T, stopTimeoutMs: Long = 5000) = flow.toStateFlow(
