@@ -14,13 +14,13 @@ import com.chobitech.lib.android.fireswitch.LaunchWithFireSwitch
 import kotlinx.coroutines.flow.distinctUntilChanged
 
 @Composable
-fun CtDrawer(
+fun <T : CtDrawerManager> CtDrawer(
+    drawerManager: T,
     drawerContent: @Composable () -> Unit,
     modifier: Modifier = Modifier,
-    drawerManager: CtDrawerManager = CtDrawerManager(),
     gestureEnabled: Boolean = true,
     scrimColor: Color = DrawerDefaults.scrimColor,
-    content: @Composable (drawerManager: CtDrawerManager, drawerState: DrawerState) -> Unit
+    content: @Composable (drawerManager: T, drawerState: DrawerState) -> Unit
 ) {
     val drawerState = rememberDrawerState(DrawerValue.Closed)
 
@@ -55,5 +55,23 @@ fun CtDrawer(
     ) {
         content(drawerManager, drawerState)
     }
-
 }
+
+
+
+@Composable
+fun CtDrawer(
+    drawerContent: @Composable () -> Unit,
+    modifier: Modifier = Modifier,
+    drawerManager: CtDrawerManager = CtDrawerManager(),
+    gestureEnabled: Boolean = true,
+    scrimColor: Color = DrawerDefaults.scrimColor,
+    content: @Composable (drawerManager: CtDrawerManager, drawerState: DrawerState) -> Unit
+) = CtDrawer<CtDrawerManager>(
+    drawerManager = drawerManager,
+    drawerContent = drawerContent,
+    modifier = modifier,
+    gestureEnabled = gestureEnabled,
+    scrimColor = scrimColor,
+    content = content
+)
