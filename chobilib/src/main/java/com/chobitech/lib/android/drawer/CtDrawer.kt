@@ -16,7 +16,7 @@ import kotlinx.coroutines.flow.distinctUntilChanged
 @Composable
 fun <T : CtDrawerManager> CtDrawer(
     drawerManager: T,
-    drawerContent: @Composable () -> Unit,
+    drawerContent: @Composable (drawerState: DrawerState) -> Unit,
     modifier: Modifier = Modifier,
     gestureEnabled: Boolean = true,
     scrimColor: Color = DrawerDefaults.scrimColor,
@@ -47,7 +47,9 @@ fun <T : CtDrawerManager> CtDrawer(
 
 
     ModalNavigationDrawer(
-        drawerContent = drawerContent,
+        drawerContent = {
+            drawerContent(drawerState)
+        },
         modifier = modifier,
         drawerState = drawerState,
         gesturesEnabled = gestureEnabled,
@@ -61,17 +63,19 @@ fun <T : CtDrawerManager> CtDrawer(
 
 @Composable
 fun CtDrawer(
-    drawerContent: @Composable () -> Unit,
+    drawerContent: @Composable (drawerState: DrawerState) -> Unit,
     modifier: Modifier = Modifier,
     drawerManager: CtDrawerManager = CtDrawerManager(),
     gestureEnabled: Boolean = true,
     scrimColor: Color = DrawerDefaults.scrimColor,
     content: @Composable (drawerManager: CtDrawerManager, drawerState: DrawerState) -> Unit
-) = CtDrawer<CtDrawerManager>(
-    drawerManager = drawerManager,
-    drawerContent = drawerContent,
-    modifier = modifier,
-    gestureEnabled = gestureEnabled,
-    scrimColor = scrimColor,
-    content = content
-)
+) {
+    CtDrawer<CtDrawerManager>(
+        drawerManager = drawerManager,
+        drawerContent = drawerContent,
+        modifier = modifier,
+        gestureEnabled = gestureEnabled,
+        scrimColor = scrimColor,
+        content = content
+    )
+}
