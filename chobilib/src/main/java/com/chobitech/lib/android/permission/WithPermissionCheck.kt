@@ -3,7 +3,7 @@ package com.chobitech.lib.android.permission
 import android.content.Context
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
-import com.chobitech.lib.android.FireSwitch
+import com.chobitech.lib.android.fireswitch.FireSwitch
 import com.chobitech.lib.android.composable.rememberFireSwitchForPermissionCheck
 
 

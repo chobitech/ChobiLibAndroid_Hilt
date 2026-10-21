@@ -6,7 +6,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberUpdatedState
-import com.chobitech.lib.android.FireSwitch
+import com.chobitech.lib.android.fireswitch.FireSwitch
 import com.chobitech.lib.android.findActivity
 import com.chobitech.lib.android.permission.PermissionCheckResult
 

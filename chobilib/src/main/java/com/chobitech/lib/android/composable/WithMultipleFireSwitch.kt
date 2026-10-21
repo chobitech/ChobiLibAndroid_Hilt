@@ -1,7 +1,7 @@
 package com.chobitech.lib.android.composable
 
 import androidx.compose.runtime.Composable
-import com.chobitech.lib.android.FireSwitch
+import com.chobitech.lib.android.fireswitch.FireSwitch
 
 
 @Composable

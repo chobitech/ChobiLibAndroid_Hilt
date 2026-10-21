@@ -13,7 +13,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 
-
 abstract class NavContentPage(
 
 ) {
@@ -46,8 +45,6 @@ abstract class NavContentPage(
                 contentScrollState
             )
         }
-
-
     }
 
 
@@ -106,7 +103,6 @@ abstract class NavContentPage(
 
 
     open fun isMatchRoute(route: String): Boolean {
-        //return (route == this.route) || routePrefixRegex.containsMatchIn(route)
         return (route == this.route)
                 || route.startsWith("${this.route}?")
                 || route.startsWith("${uriScheme}://${this.route}")

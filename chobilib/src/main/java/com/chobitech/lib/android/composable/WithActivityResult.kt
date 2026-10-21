@@ -3,7 +3,7 @@ package com.chobitech.lib.android.composable
 import android.content.Context
 import androidx.activity.result.contract.ActivityResultContract
 import androidx.compose.runtime.Composable
-import com.chobitech.lib.android.FireSwitch
+import com.chobitech.lib.android.fireswitch.FireSwitch
 
 
 @Composable
